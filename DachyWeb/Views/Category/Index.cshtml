@@ -1,6 +1,19 @@
 ﻿@model List<Category>
 
-<h1>Lista Kategorii</h1>
+<div class = "container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Lista kategorii
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-square-fill"></i> Utwórz nową kategorię
+            </a>
+        </div>
+    </div>
+
 <table class="table table-bordered table-striped">
     <thead>
     <tr>
@@ -10,6 +23,7 @@
         <th>
             Kolejność wyświetlania
         </th>
+            <th></th>
     </tr>
     <tbody>
             @foreach (var obj in Model.OrderBy(u => u.DisplayOrder))
@@ -19,7 +33,19 @@
                 <td>
                     @obj.DisplayOrder
                 </td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Category" asp-action="Edit" asp-route-categoryId="@obj.CategoryId" class="btn btn-primary mx-20">
+                                <i class="bi bi-pencil-square"></i> Edytuj
+                            </a>
+                            <a asp-controller="Category" asp-action="Delete" class="btn btn-danger mx-20">
+                                <i class="bi bi-trash-fill"></i> Usuń
+                            </a>
+                        </div>
+                    </td>
             </tr>
         }
     </tbody>
 </table>
+
+</div>
