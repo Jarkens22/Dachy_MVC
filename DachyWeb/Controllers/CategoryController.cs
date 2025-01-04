@@ -9,7 +9,7 @@ namespace DachyWeb.Controllers
         private readonly ApplicationDbContext _db;
         public CategoryController(ApplicationDbContext db)
         {
-            _db = db;   
+            _db = db;
         }
         public IActionResult Index()
         {
@@ -32,10 +32,11 @@ namespace DachyWeb.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Kategoria została dodana do listy";
                 return RedirectToAction("Index");
             }
             return View(obj);
-            
+
         }
 
         public IActionResult Edit(int? categoryId)
@@ -44,7 +45,7 @@ namespace DachyWeb.Controllers
             {
                 return NotFound();
             }
-            Category categoryFromDb = _db.Categories.Find(categoryId);
+            Category? categoryFromDb = _db.Categories.Find(categoryId);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -62,10 +63,39 @@ namespace DachyWeb.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Kategoria została edytowana";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            return View();
 
+        }
+
+        public IActionResult Delete(int? categoryId)
+        {
+            if (categoryId == null || categoryId == 0)
+            {
+                return NotFound();
+            }
+            Category? categoryFromDb = _db.Categories.Find(categoryId);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? categoryId)
+        {
+            Category? obj = _db.Categories.Find(categoryId);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Kategoria została usunięta z listy";
+            return RedirectToAction("Index");
         }
     }
 }

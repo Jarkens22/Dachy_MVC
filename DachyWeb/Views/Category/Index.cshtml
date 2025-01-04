@@ -38,7 +38,7 @@
                             <a asp-controller="Category" asp-action="Edit" asp-route-categoryId="@obj.CategoryId" class="btn btn-primary mx-20">
                                 <i class="bi bi-pencil-square"></i> Edytuj
                             </a>
-                            <a asp-controller="Category" asp-action="Delete" class="btn btn-danger mx-20">
+                            <a asp-controller="Category" asp-action="Delete" asp-route-categoryId="@obj.CategoryId" class="btn btn-danger mx-20">
                                 <i class="bi bi-trash-fill"></i> Usuń
                             </a>
                         </div>
