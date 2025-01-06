@@ -1,4 +1,4 @@
-namespace DachyWeb.Models
+namespace Dachy.Models
 {
     public class ErrorViewModel
     {

@@ -1,9 +1,10 @@
-using DachyWeb.Models;
+using Dachy.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace DachyWeb.Controllers
+namespace DachyWeb.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

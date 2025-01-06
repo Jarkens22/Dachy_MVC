@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DachyWeb.Migrations
+namespace Dachy.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTable : Migration

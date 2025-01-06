@@ -1,7 +1,7 @@
-﻿using DachyWeb.Models;
+﻿using Dachy.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DachyWeb.Data
+namespace Dachy.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

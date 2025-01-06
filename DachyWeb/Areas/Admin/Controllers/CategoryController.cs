@@ -1,19 +1,22 @@
-﻿using DachyWeb.Data;
-using DachyWeb.Models;
+﻿using Dachy.DataAccess.Data;
+using Dachy.DataAccess.Repository;
+using Dachy.DataAccess.Repository.IRepository;
+using Dachy.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DachyWeb.Controllers
+namespace DachyWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -30,8 +33,8 @@ namespace DachyWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Kategoria została dodana do listy";
                 return RedirectToAction("Index");
             }
@@ -45,7 +48,7 @@ namespace DachyWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(categoryId);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == categoryId);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -61,8 +64,8 @@ namespace DachyWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Kategoria została edytowana";
                 return RedirectToAction("Index");
             }
@@ -76,7 +79,7 @@ namespace DachyWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(categoryId);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == categoryId);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -86,14 +89,14 @@ namespace DachyWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? categoryId)
         {
-            Category? obj = _db.Categories.Find(categoryId);
+            Category? obj = _unitOfWork.Category.Get(u => u.CategoryId == categoryId);
 
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Kategoria została usunięta z listy";
             return RedirectToAction("Index");
         }
