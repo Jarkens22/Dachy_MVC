@@ -5,6 +5,12 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DachyWeb", "DachyWeb\DachyWeb.csproj", "{13EBF495-8FC3-48E6-ACBB-FDE3D1504CA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dachy.DataAccess", "Dachy.DataAccess\Dachy.DataAccess.csproj", "{86DA5268-CD62-4A40-BCD7-5C75E13F10AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dachy.Models", "Dachy.Models\Dachy.Models.csproj", "{1695F934-05D9-443D-B372-D6C70A31A223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dachy.Utility", "Dachy.Utility\Dachy.Utility.csproj", "{66F4074C-CE70-4480-93CD-FDEA84B9158D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{13EBF495-8FC3-48E6-ACBB-FDE3D1504CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13EBF495-8FC3-48E6-ACBB-FDE3D1504CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13EBF495-8FC3-48E6-ACBB-FDE3D1504CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86DA5268-CD62-4A40-BCD7-5C75E13F10AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86DA5268-CD62-4A40-BCD7-5C75E13F10AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86DA5268-CD62-4A40-BCD7-5C75E13F10AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86DA5268-CD62-4A40-BCD7-5C75E13F10AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1695F934-05D9-443D-B372-D6C70A31A223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1695F934-05D9-443D-B372-D6C70A31A223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1695F934-05D9-443D-B372-D6C70A31A223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1695F934-05D9-443D-B372-D6C70A31A223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66F4074C-CE70-4480-93CD-FDEA84B9158D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F4074C-CE70-4480-93CD-FDEA84B9158D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F4074C-CE70-4480-93CD-FDEA84B9158D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F4074C-CE70-4480-93CD-FDEA84B9158D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
