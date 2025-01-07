@@ -3,6 +3,7 @@ using Dachy.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dachy.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250106211234_KluczObcyDoProduktu")]
+    partial class KluczObcyDoProduktu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,10 +91,6 @@ namespace Dachy.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -124,7 +123,6 @@ namespace Dachy.DataAccess.Migrations
                             ProductId = 1,
                             CategoryId = 1,
                             Description = "Frigge to nowoczesny i estetyczny dach na każdą kieszeń. Prosta, ciekawa forma oraz szeroki wybór powłok i kolorów blachodachówki modułowej Ruukki Frigge – to cechy, które pozwolą spełnić oczekiwania każdego Klienta.",
-                            ImageUrl = "",
                             ListPrice = 55.0,
                             Name = "Frigge",
                             Price100 = 52.0,
@@ -137,7 +135,6 @@ namespace Dachy.DataAccess.Migrations
                             ProductId = 2,
                             CategoryId = 1,
                             Description = "Wolność i swoboda w działaniu - to Como! Dopasuj powierzchnię dachu do własnego gustu i wybierz wersję standardową bądź z dodatkowym przetłoczeniem - mikrofalą.",
-                            ImageUrl = "",
                             ListPrice = 60.0,
                             Name = "Como",
                             Price100 = 57.0,
@@ -150,7 +147,6 @@ namespace Dachy.DataAccess.Migrations
                             ProductId = 3,
                             CategoryId = 1,
                             Description = "Pierwsza w rodzinie. Od niej wszystko się zaczęło. To efekt pracy nad najlepszym dachem modułowym w Polsce i w Europie. 5 dolnych fal i 6 wierzchołków sprawiają, że Venecja podkreśla urodę klasycznych budynków.",
-                            ImageUrl = "",
                             ListPrice = 66.0,
                             Name = "Venecja",
                             Price100 = 62.0,
