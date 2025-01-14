@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dachy.DataAccess.Repository
 {
-    public class ProductRepository : Repository <Product>, IProductRepository 
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly ApplicationDbContext _db;
         public ProductRepository(ApplicationDbContext db) : base(db)
@@ -20,7 +20,22 @@ namespace Dachy.DataAccess.Repository
 
         public void Update(Product obj)
         {
-            _db.Products.Update(obj);
+            var objFromDb = _db.Products.FirstOrDefault(u => u.ProductId == obj.ProductId);
+            if (objFromDb != null)
+            {
+                objFromDb.Name = obj.Name;
+                objFromDb.Description = obj.Description;
+                objFromDb.Producent = obj.Producent;
+                objFromDb.ListPrice = obj.ListPrice;
+                objFromDb.Price100 = obj.Price100;
+                objFromDb.Price300 = obj.Price300;
+                objFromDb.Price500 = obj.Price500;
+                objFromDb.CategoryId = obj.CategoryId;
+                if (obj.ImageUrl != null)
+                {
+                    objFromDb.ImageUrl = obj.ImageUrl;
+                }
+            }
         }
     }
 }
