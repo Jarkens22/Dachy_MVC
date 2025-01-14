@@ -109,34 +109,6 @@ namespace DachyWeb.Areas.Admin.Controllers
 
         }
 
-        public IActionResult Delete(int? productId)
-        {
-            if (productId == null || productId == 0)
-            {
-                return NotFound();
-            }
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.ProductId == productId);
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? productId)
-        {
-            Product? obj = _unitOfWork.Product.Get(u => u.ProductId == productId);
-
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _unitOfWork.Product.Remove(obj);
-            _unitOfWork.Save();
-            TempData["success"] = "Produkt został usunięty";
-            return RedirectToAction("Index");
-        }
-
         #region API CALLS
 
         [HttpGet]
@@ -145,17 +117,16 @@ namespace DachyWeb.Areas.Admin.Controllers
             List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json (new {data = objProductList });
         }
-        [HttpDelete]
-      /*  public IActionResult Delete(int? productId)
+
+        public IActionResult Delete(int? id)
         {
-            var productToBeDeleted = _unitOfWork.Product.Get(u=>u.ProductId == productId);
+            var productToBeDeleted = _unitOfWork.Product.Get(u=>u.ProductId == id);
             if (productToBeDeleted == null)
             {
                 return Json(new { success = false, message = "Problemik przy usunięciu!" });
             }
 
-            var oldImagePath =
-                                        Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('/'));
+            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('/'));
 
             if (System.IO.File.Exists(oldImagePath))
             {
@@ -166,7 +137,7 @@ namespace DachyWeb.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             return Json(new { success = true, message = "Usunięto! :)" });
-        }*/
+        }
 
         #endregion
     }
