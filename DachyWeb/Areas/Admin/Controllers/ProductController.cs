@@ -118,6 +118,7 @@ namespace DachyWeb.Areas.Admin.Controllers
             return Json (new {data = objProductList });
         }
 
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
             var productToBeDeleted = _unitOfWork.Product.Get(u=>u.ProductId == id);
@@ -136,7 +137,7 @@ namespace DachyWeb.Areas.Admin.Controllers
             _unitOfWork.Product.Remove(productToBeDeleted);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Usunięto! :)" });
+            return Json(new { success = true, message = "Gotowe! :)" });
         }
 
         #endregion
