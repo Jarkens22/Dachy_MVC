@@ -18,11 +18,38 @@ namespace DachyWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            return View();
+        }
+
+        public IActionResult Roofs()
+        {
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p=>p.CategoryId ==1);
+            return View(productList);
+        }
+        public IActionResult Gutters()
+        {
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p => p.CategoryId == 4);
+            return View(productList);
+        }
+        public IActionResult Accessories()
+        {
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p => p.CategoryId == 11);
             return View(productList);
         }
 
-        public IActionResult Details(int productId)
+        public IActionResult DetailsGutters(int productId)
+        {
+            Product product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category");
+            return View(product);
+        }
+
+        public IActionResult DetailsAccessories(int productId)
+        {
+            Product product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category");
+            return View(product);
+        }
+
+        public IActionResult DetailsRoofs(int productId)
         {
             Product product = _unitOfWork.Product.Get(u=>u.ProductId== productId, includeProperties: "Category");
             return View(product);
