@@ -1,9 +1,10 @@
 ﻿using Dachy.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dachy.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -15,6 +16,8 @@ namespace Dachy.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, Name = "Pokrycia stalowe", DisplayOrder = 1 },
                 new Category { CategoryId = 2, Name = "Dachówki ceramiczne", DisplayOrder = 2 },
