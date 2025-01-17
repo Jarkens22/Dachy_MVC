@@ -8,10 +8,10 @@ function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": { url: '/admin/product/getall'},
         "columns": [
-        { data: 'name', "width": "10%" },
-        { data: 'producent', "width": "10%" },
+        { data: 'name', "width": "15%" },
+        { data: 'producent', "width": "5%" },
         { data: 'listPrice', "width": "5%" },
-            { data: 'category.name', "width": "15%" },
+            { data: 'category.name', "width": "10%" },
             {
                 data: 'productId',
                 "render": function (data) {
@@ -20,7 +20,7 @@ function loadDataTable() {
                                 <a onCLick=Delete('/admin/product/delete/${data}') class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Usun </a>
                             </div>`
                 },
-                "width": "25%"
+                "width": "20%"
             },
         ]
     });
