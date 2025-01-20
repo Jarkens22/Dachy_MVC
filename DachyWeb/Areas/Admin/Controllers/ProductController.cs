@@ -3,12 +3,15 @@ using Dachy.DataAccess.Repository;
 using Dachy.DataAccess.Repository.IRepository;
 using Dachy.Models;
 using Dachy.Models.ViewModels;
+using Dachy.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DachyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
