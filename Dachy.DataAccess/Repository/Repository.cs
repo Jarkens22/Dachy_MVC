@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dachy.DataAccess.Data;
 using Dachy.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Dachy.DataAccess.Repository
 {
@@ -27,9 +28,18 @@ namespace Dachy.DataAccess.Repository
 
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query;
+            if (tracked) 
+            {
+                query = dbSet;
+            }
+            else
+            {
+                query = dbSet.AsNoTracking();
+            }
+
             query = query.Where(filter);
             if (!string.IsNullOrEmpty(includeProperties))
             {
