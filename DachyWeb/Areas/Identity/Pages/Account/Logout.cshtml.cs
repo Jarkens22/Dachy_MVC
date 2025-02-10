@@ -26,6 +26,8 @@ namespace DachyWeb.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
+            //usunięcie sesji po wylogowaniu.
+            HttpContext.Session.Clear();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

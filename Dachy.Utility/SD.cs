@@ -25,5 +25,7 @@ namespace Dachy.Utility
         public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
         public const string PaymentStatusRejected = "Rejecter";
 
+        public const string SessionCart = "SessionSHoppingCart";
+
     }
 }
