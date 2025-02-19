@@ -31,10 +31,11 @@ namespace Dachy.DataAccess.Repository
                 objFromDb.Price300 = obj.Price300;
                 objFromDb.Price500 = obj.Price500;
                 objFromDb.CategoryId = obj.CategoryId;
-                if (obj.ImageUrl != null)
-                {
-                    objFromDb.ImageUrl = obj.ImageUrl;
-                }
+                objFromDb.ProductImages = obj.ProductImages;
+                //if (obj.ImageUrl != null)
+                //{
+                //    objFromDb.ImageUrl = obj.ImageUrl;
+                //}
             }
         }
     }

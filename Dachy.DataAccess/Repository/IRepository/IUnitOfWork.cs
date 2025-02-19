@@ -15,6 +15,7 @@ namespace Dachy.DataAccess.Repository.IRepository
         IApplicationUserRepository ApplicationUser { get; }
         IOrderDetailsRepository OrderDetails { get; }
         IOrderHeaderRepository OrderHeader { get; }
+        IProductImageRepository ProductImage { get; }
 
 
         void Save();

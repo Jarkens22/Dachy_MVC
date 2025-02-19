@@ -13,6 +13,7 @@ namespace Dachy.DataAccess.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
@@ -41,9 +42,7 @@ namespace Dachy.DataAccess.Data
                     Price100 = 52,
                     Price300 = 49,
                     Price500 = 46,
-                    CategoryId = 1,
-                    ImageUrl = ""
-                },
+                    CategoryId = 1                },
                 new Product
                 {
                     ProductId = 2,
@@ -54,9 +53,7 @@ namespace Dachy.DataAccess.Data
                     Price100 = 57,
                     Price300 = 54,
                     Price500 = 51,
-                    CategoryId = 1,
-                    ImageUrl = ""
-                },
+                    CategoryId = 1                },
                 new Product
                 {
                     ProductId = 3,
@@ -67,8 +64,7 @@ namespace Dachy.DataAccess.Data
                     Price100 = 62,
                     Price300 = 59,
                     Price500 = 56,
-                    CategoryId = 1,
-                    ImageUrl = ""
+                    CategoryId = 1
                 }
                 );
 

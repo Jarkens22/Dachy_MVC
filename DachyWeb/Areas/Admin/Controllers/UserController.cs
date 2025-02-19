@@ -16,12 +16,15 @@ namespace DachyWeb.Areas.Admin.Controllers
     [Authorize(Roles = SD.Role_Admin)]
     public class UserController : Controller
     {
-        private readonly ApplicationDbContext _db;
+
         private readonly UserManager<IdentityUser> _userManager;
-        public UserController(ApplicationDbContext db, UserManager<IdentityUser> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUnitOfWork _unitOfWork;
+        public UserController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _roleManager = roleManager;
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
@@ -30,34 +33,36 @@ namespace DachyWeb.Areas.Admin.Controllers
 
         public IActionResult RoleManagment(string userId)
         {
-            string RoleId = _db.UserRoles.FirstOrDefault(u => u.UserId == userId).RoleId;
             RoleManagmentViewModel RoleVM = new RoleManagmentViewModel() {
-                ApplicationUser = _db.ApplicationUsers.Include(u => u.Company).FirstOrDefault(u => u.Id == userId),
-                RoleList = _db.Roles.Select(i => new SelectListItem
+                ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId, includeProperties:"Company"),
+                RoleList = _roleManager.Roles.Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Name
                 }),
-                CompanyList = _db.Companies.Select(i => new SelectListItem
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
                 })
             };
 
-            RoleVM.ApplicationUser.Role = _db.Roles.FirstOrDefault(u => u.Id == RoleId).Name;
+            RoleVM.ApplicationUser.Role = _userManager.GetRolesAsync(_unitOfWork.ApplicationUser.Get(u=>u.Id == userId))
+                .GetAwaiter().GetResult().FirstOrDefault();
             return View(RoleVM);  
         }
 
         [HttpPost]
         public IActionResult RoleManagment(RoleManagmentViewModel roleManagmentViewModel)
         {
-            string RoleId = _db.UserRoles.FirstOrDefault(u => u.UserId == roleManagmentViewModel.ApplicationUser.Id).RoleId;
-            string oldRole = _db.Roles.FirstOrDefault(u => u.Id == RoleId).Name;
+            string oldRole = _userManager.GetRolesAsync(_unitOfWork.ApplicationUser.Get(u => u.Id == roleManagmentViewModel.ApplicationUser.Id))
+                .GetAwaiter().GetResult().FirstOrDefault();
+
+            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == roleManagmentViewModel.ApplicationUser.Id);
+
 
             if (!(roleManagmentViewModel.ApplicationUser.Role == oldRole))
             {
-                ApplicationUser applicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id ==roleManagmentViewModel.ApplicationUser.Id);
                 if (roleManagmentViewModel.ApplicationUser.Role == SD.Role_Company)
                 {
                     applicationUser.CompanyId = roleManagmentViewModel.ApplicationUser.CompanyId;
@@ -66,9 +71,19 @@ namespace DachyWeb.Areas.Admin.Controllers
                 {
                     applicationUser.CompanyId = null;
                 }
-                _db.SaveChanges();
+                _unitOfWork.ApplicationUser.Update(applicationUser);
+                _unitOfWork.Save();                
                 _userManager.RemoveFromRoleAsync(applicationUser, oldRole).GetAwaiter().GetResult();
                 _userManager.AddToRoleAsync(applicationUser, roleManagmentViewModel.ApplicationUser.Role).GetAwaiter().GetResult();
+            }
+            else
+            {
+                if (oldRole ==SD.Role_Company && applicationUser.CompanyId != roleManagmentViewModel.ApplicationUser.CompanyId)
+                {
+                    applicationUser.CompanyId = roleManagmentViewModel.ApplicationUser.CompanyId;
+                    _unitOfWork.ApplicationUser.Update(applicationUser);
+                    _unitOfWork.Save();
+                }
             }
 
             return RedirectToAction("Index");
@@ -79,13 +94,10 @@ namespace DachyWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll ()
         {
-            List<ApplicationUser> objUserList = _db.ApplicationUsers.Include(u => u.Company).ToList();
-            var userRoles = _db.UserRoles.ToList();
-            var roles = _db.Roles.ToList();
+            List<ApplicationUser> objUserList = _unitOfWork.ApplicationUser.GetAll(includeProperties:"Company").ToList();
             foreach (var user in objUserList)
             {
-                var roleId = userRoles.FirstOrDefault(u => u.UserId == user.Id).RoleId;
-                user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
+                user.Role = _userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
                 if (user.Company == null)
                 {
                     user.Company = new() { Name = "" };
@@ -98,7 +110,7 @@ namespace DachyWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult LockUnlock([FromBody]string id)
         {
-            var objFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.Id == id);
+            var objFromDb = _unitOfWork.ApplicationUser.Get(u => u.Id == id);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Problem z blokadą" });
@@ -113,8 +125,8 @@ namespace DachyWeb.Areas.Admin.Controllers
             {
                 objFromDb.LockoutEnd = DateTime.Now.AddYears(999);
             }
-
-            _db.SaveChanges();
+            _unitOfWork.ApplicationUser.Update(objFromDb);
+            _unitOfWork.Save();
             return Json(new { success = true, message = "Gotowe! :)" });
         }
 

@@ -26,17 +26,17 @@ namespace DachyWeb.Areas.Customer.Controllers
 
         public IActionResult Roofs()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p => p.CategoryId == 1);
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,ProductImages").Where(p => p.CategoryId == 1);
             return View(productList);
         }
         public IActionResult Gutters()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p => p.CategoryId == 4);
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,ProductImages").Where(p => p.CategoryId == 4);
             return View(productList);
         }
         public IActionResult Accessories()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").Where(p => p.CategoryId == 11);
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,ProductImages").Where(p => p.CategoryId == 11);
             return View(productList);
         }
 
@@ -44,7 +44,7 @@ namespace DachyWeb.Areas.Customer.Controllers
         {
             ShoppingCart cart = new()
             {
-                Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category"),
+                Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category,ProductImages"),
                 Count = 1,
                 ProductId = productId
             };
@@ -86,7 +86,7 @@ namespace DachyWeb.Areas.Customer.Controllers
         {
             ShoppingCart cart = new()
             {
-                Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category"),
+                Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category,ProductImages"),
                 Count = 1,
                 ProductId = productId
             };
@@ -128,7 +128,7 @@ namespace DachyWeb.Areas.Customer.Controllers
         {
             ShoppingCart cart = new()
             {
-                Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category"),
+                Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category,ProductImages"),
                 Count = 1,
                 ProductId = productId
             };
