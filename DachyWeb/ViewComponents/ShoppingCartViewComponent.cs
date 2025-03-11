@@ -24,7 +24,8 @@ namespace DachyWeb.ViewComponents
                 if (HttpContext.Session.GetInt32(SD.SessionCart) == null)
                 {
                     HttpContext.Session.SetInt32(SD.SessionCart,
-                        _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
+                        _unitOfWork.ShoppingCart.GetAll(u => 
+                            u.ApplicationUserId == claim.Value).Count());
                 }
 
                 return View(HttpContext.Session.GetInt32(SD.SessionCart));

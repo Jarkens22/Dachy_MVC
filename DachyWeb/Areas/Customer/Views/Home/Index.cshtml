@@ -1,70 +1,144 @@
-﻿<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona Główna</title>
-    <link rel="stylesheet" href="/css/site.css">
-</head>
-<body>
-    <header class="hero-banner bg-primary text-white text-center py-5">
-        <h1>Witaj na naszej stronie!</h1>
-        <p>Znajdź wszystko, czego potrzebujesz do swojego dachu, rynien i akcesoriów!</p>
-        <a href="#products" class="btn btn-light btn-lg mt-3">Sprawdź nasze produkty</a>
-    </header>
+﻿@{
+    ViewData["Title"] = "Strona Główna";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
 
-    <main class="container mt-5">
-        <section id="featured-products" class="mb-5">
-            <h2 class="text-center text-primary">Polecane produkty</h2>
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <div class="card">
-                        <img src="/images/roofs.jpg" class="card-img-top" alt="Dachy">
-                        <div class="card-body">
-                            <h5 class="card-title">Dachy</h5>
-                            <p class="card-text">Najlepsze pokrycia dachowe w regionie.</p>
-                            <a href="/Roofs" class="btn btn-primary">Zobacz więcej</a>
-                        </div>
-                    </div>
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+            <h1 class="display-4 fw-bold mb-3">Witamy w naszym sklepie!</h1>
+            <p class="lead mb-4">
+                Oferujemy szeroki wybór pokryć dachowych oraz akcesoriów,
+                dzięki którym Twój dach będzie solidny i wyjątkowy.
+            </p>
+            <a class="btn btn-primary btn-lg"
+               asp-area="Customer" asp-controller="Home" asp-action="Roofs">
+                Zobacz ofertę
+            </a>
+        </div>
+        <div class="col-md-6">
+            <img src="~/images/dach11.jpg"
+                 alt="Pokrycia Dachowe" class="img-fluid rounded shadow" />
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Nasze kategorie</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="~/images/pokryciadachoweindex2.webp"
+                     class="card-img-top"
+                     alt="Blachodachówka">
+                <div class="card-body">
+                    <h5 class="card-title">Pokrycia dachowe</h5>
+                    <p class="card-text">
+                        Trwałe i estetyczne pokrycie dachowe dostępne w wielu wariantach kolorystycznych.
+                    </p>
                 </div>
-                <div class="col-md-4 text-center">
-                    <div class="card">
-                        <img src="/images/gutters.jpg" class="card-img-top" alt="Rynny">
-                        <div class="card-body">
-                            <h5 class="card-title">Rynny</h5>
-                            <p class="card-text">Solidne systemy odprowadzania wody.</p>
-                            <a href="/Gutters" class="btn btn-primary">Zobacz więcej</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="card">
-                        <img src="/images/accessories.jpg" class="card-img-top" alt="Akcesoria">
-                        <div class="card-body">
-                            <h5 class="card-title">Akcesoria</h5>
-                            <p class="card-text">Wszystkie niezbędne dodatki.</p>
-                            <a href="/Accessories" class="btn btn-primary">Zobacz więcej</a>
-                        </div>
-                    </div>
+                <div class="card-footer bg-white">
+                    <a class="btn btn-primary btn-lg w-100"
+                       asp-area="Customer" asp-controller="Home" asp-action="Roofs">
+                        Odkryj więcej
+                    </a>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section id="services" class="mb-5">
-            <h2 class="text-center text-primary">Nasze usługi</h2>
-            <p class="text-center">Oferujemy kompleksowe wsparcie w zakresie montazu, doradztwa oraz dostawy.</p>
-        </section>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="~/images/systemyrynnoweindex.jpg"
+                     class="card-img-top"
+                     alt="Dachówki Ceramiczne">
+                <div class="card-body">
+                    <h5 class="card-title">Systemy rynnowe</h5>
+                    <p class="card-text">
+                        Ponadczasowy wygląd i znakomita trwałość, cenione przez wymagających właścicieli domów.
+                    </p>
+                </div>
+                <div class="card-footer bg-white">
+                    <a class="btn btn-primary btn-lg w-100"
+                       asp-area="Customer" asp-controller="Home" asp-action="Gutters">
+                        Zobacz ofertę
+                    </a>
+                </div>
+            </div>
+        </div>
 
-        <section id="testimonials" class="mb-5">
-            <h2 class="text-center text-primary">Opinie klientów</h2>
-            <blockquote class="blockquote text-center">
-                <p class="mb-0">"Profesjonalna obsługa i wysokiej jakości produkty! Polecam każdemu."</p>
-            </blockquote>
-        </section>
-    </main>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="~/images/akcesoriadachoweindex.jpg"
+                     class="card-img-top"
+                     alt="Akcesoria Dachowe">
+                <div class="card-body">
+                    <h5 class="card-title">Akcesoria</h5>
+                    <p class="card-text">
+                        Kompleksowa oferta akcesoriów i elementów wykończeniowych do każdego typu pokrycia.
+                    </p>
+                </div>
+                <div class="card-footer bg-white">
+                    <a class="btn btn-primary btn-lg w-100"
+                       asp-area="Customer" asp-controller="Home" asp-action="Accessories">
+                        Sprawdź szczegóły
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <footer class="footer bg-dark text-white text-center">
-        <p>&copy; 2025 Firma Dachy i Akcesoria. Wszelkie prawa zastrzeżone.</p>
-    </footer>
-</body>
-</html>
+<div class="bg-light py-5 mt-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Dlaczego warto nam zaufać?</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+            <div class="col">
+                <div class="p-3">
+                    <div class="fs-1 mb-3 text-primary">
+                        <i class="bi bi-award"></i> 
+                    </div>
+                    <h5 class="fw-bold">Wieloletnie doświadczenie</h5>
+                    <p>Od lat dostarczamy sprawdzone i certyfikowane rozwiązania dla domów i firm.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <div class="fs-1 mb-3 text-primary">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5 class="fw-bold">Gwarancja jakości</h5>
+                    <p>Tylko oryginalne produkty od wiodących producentów pokryć dachowych.</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3">
+                    <div class="fs-1 mb-3 text-primary">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <h5 class="fw-bold">Szybka dostawa</h5>
+                    <p>Dostarczamy towary na terenie całego kraju, dbając o terminowość i bezpieczeństwo przesyłek.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="p-5 bg-dark text-white rounded text-center">
+        <h3 class="mb-3">Gotowy na zakupy?</h3>
+        <p class="mb-4">Znajdź idealne pokrycie dachowe lub akcesoria już dziś i ciesz się profesjonalnym wsparciem.</p>
+        <a class="btn btn-warning btn-lg"
+           asp-area="Customer" asp-controller="Home" asp-action="Roofs">
+            Rozpocznij przeglądanie
+        </a>
+    </div>
+</div>

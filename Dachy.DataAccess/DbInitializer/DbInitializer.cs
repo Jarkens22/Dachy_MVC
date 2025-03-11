@@ -3,11 +3,6 @@ using Dachy.Models;
 using Dachy.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dachy.DataAccess.DbInitializer
 {
@@ -17,7 +12,8 @@ namespace Dachy.DataAccess.DbInitializer
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _db;
 
-        public DbInitializer(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext db)
+        public DbInitializer(UserManager<IdentityUser> userManager, 
+            RoleManager<IdentityRole> roleManager, ApplicationDbContext db)
         {
             _userManager = userManager;
             _roleManager = roleManager;

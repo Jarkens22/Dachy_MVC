@@ -1,6 +1,4 @@
-﻿using Dachy.DataAccess.Data;
-using Dachy.DataAccess.Repository;
-using Dachy.DataAccess.Repository.IRepository;
+﻿using Dachy.DataAccess.Repository.IRepository;
 using Dachy.Models;
 using Dachy.Models.ViewModels;
 using Dachy.Utility;

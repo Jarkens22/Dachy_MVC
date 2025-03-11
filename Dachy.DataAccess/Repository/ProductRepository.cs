@@ -1,12 +1,6 @@
 ﻿using Dachy.DataAccess.Data;
 using Dachy.DataAccess.Repository.IRepository;
 using Dachy.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dachy.DataAccess.Repository
 {
@@ -32,10 +26,7 @@ namespace Dachy.DataAccess.Repository
                 objFromDb.Price500 = obj.Price500;
                 objFromDb.CategoryId = obj.CategoryId;
                 objFromDb.ProductImages = obj.ProductImages;
-                //if (obj.ImageUrl != null)
-                //{
-                //    objFromDb.ImageUrl = obj.ImageUrl;
-                //}
+
             }
         }
     }
